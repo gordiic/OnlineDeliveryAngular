@@ -1,0 +1,77 @@
+<app-nav-bar></app-nav-bar>
+<div>
+  <form [formGroup]="registrationForm" autocomplete="off">
+    <div>
+      <label>Username</label>
+      <input
+        placeholder="type username..."
+        type="text"
+        formControlName="userName"
+      />
+    </div>
+    <div>
+      <label>Email</label>
+      <input placeholder="type email..." type="email" formControlName="email" />
+    </div>
+    <div>
+      <label>Password</label>
+      <input
+        placeholder="type password..."
+        type="password"
+        formControlName="password"
+      />
+    </div>
+    <div>
+      <label>Confirm password</label>
+      <input
+        placeholder="confirm password..."
+        type="password"
+        formControlName="password2"
+      />
+    </div>
+    <div>
+      <label>Name</label>
+      <input placeholder="type name..." type="text" formControlName="name" />
+    </div>
+    <div>
+      <label>Last name</label>
+      <input
+        placeholder="type lastname..."
+        type="text"
+        formControlName="lastName"
+      />
+    </div>
+    <div>
+      <label>Birth date</label>
+      <input
+        placeholder="chose birth date"
+        type="date"
+        formControlName="birthDate"
+      />
+    </div>
+    <div>
+      <div>
+        <label>Address</label>
+        <input
+          placeholder="type username..."
+          type="text"
+          formControlName="address"
+        />
+      </div>
+      <div>
+        <label>User type</label>
+        <select title="userType" formControlName="userType" id="userType">
+          <option value="administrator">Administrator</option>
+          <option value="deliverer">Dostavljac</option>
+          <option value="ordinaryUser">Potrosac</option>
+        </select>
+      </div>
+      <div>
+        <button type="button" (click)="onRegister()">Register</button>
+      </div>
+    </div>
+  </form>
+  <div>
+    <h4 *ngIf="alertError">{{ alertError }}</h4>
+  </div>
+</div>

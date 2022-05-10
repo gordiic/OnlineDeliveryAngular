@@ -1,0 +1,74 @@
+<app-nav-bar></app-nav-bar>
+<div>
+  <div>
+    <div>
+      <form class="px-4 py-3" [formGroup]="addProductForm" autocomplete="off">
+        <div class="form-group">
+          <label>Product name</label>
+          <input
+            class="form-control"
+            placeholder="type product name..."
+            type="text"
+            formControlName="name"
+          />
+        </div>
+        <div class="form-group">
+          <label>Ingredients(divide ingredients with space)</label>
+          <input
+            class="form-control"
+            placeholder="add ingredients.."
+            type="text"
+            formControlName="ingredients"
+          />
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <input
+            class="form-control"
+            placeholder="type price..."
+            type="number"
+            formControlName="price"
+          />
+        </div>
+        <div class="form-group">
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="onAddProduct()"
+          >
+            Add product
+          </button>
+        </div>
+      </form>
+      <div class="form-group">
+        <alert *ngIf="alertError" type="danger">
+          <strong>{{ alertError }}</strong>
+        </alert>
+      </div>
+    </div>
+  </div>
+  <div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Ingredients</th>
+          <th scope="col">Price (per product)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.name }}</td>
+          <td>
+            <table>
+              <td *ngFor="let ingredient of product.ingredients">
+                {{ ingredient }}
+              </td>
+            </table>
+          </td>
+          <td>{{ product.price }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<app-nav-bar></app-nav-bar>
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Address</th>
+        <th scope="col">Price</th>
+        <th scope="col">Products</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order.address }}</td>
+        <td>{{ order.price }}</td>
+        <td *ngFor="let product of order.products">{{ product.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

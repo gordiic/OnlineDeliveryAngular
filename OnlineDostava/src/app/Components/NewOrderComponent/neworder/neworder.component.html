@@ -1,0 +1,124 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div>
+        <form class="px-4 py-3" [formGroup]="orderForm" autocomplete="off">
+          <div class="form-group">
+            <label>Address</label>
+            <input
+              class="form-control"
+              placeholder="type your address..."
+              type="text"
+              formControlName="address"
+            />
+          </div>
+          <div class="form-group">
+            <label>Comment</label>
+            <input
+              class="form-control"
+              placeholder="type your comment..."
+              type="password"
+              formControlName="comment"
+            />
+          </div>
+        </form>
+        <div class="form-group">
+          <alert *ngIf="alertError" type="danger">
+            <strong>{{ alertError }}</strong>
+          </alert>
+        </div>
+      </div>
+      <div class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">List</th>
+            <th>
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="confirmOrder()"
+              >
+                Order
+              </button>
+            </th>
+            <th>Bill + Deliver</th>
+            <th>{{ order.price }} + {{ deliverPrice }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of order.products">
+            <td>{{ product.name }}</td>
+            <td>
+              <table>
+                <td *ngFor="let ingredient of product.ingredients">
+                  {{ ingredient }}
+                </td>
+              </table>
+            </td>
+
+            <td>
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="decAmount(product.id)"
+              >
+                -
+              </button>
+            </td>
+            <td>
+              {{ product.amount }}
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="incAmount(product.id)"
+              >
+                +
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </div>
+    </div>
+
+    <div class="col-sm">
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Ingredients</th>
+              <th scope="col">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products">
+              <td>{{ product.name }}</td>
+              <td>
+                <table>
+                  <td *ngFor="let ingredient of product.ingredients">
+                    {{ ingredient }}
+                  </td>
+                </table>
+              </td>
+              <td>{{ product.price }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  (click)="addProduct(product.id)"
+                  value="{{ product.id }}"
+                >
+                  Add to order list
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,127 @@
+<app-nav-bar></app-nav-bar>
+
+<div>
+  <form [formGroup]="userUpdateForm" autocomplete="off">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Name</span>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Name..."
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+        formControlName="name"
+      />
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Last name</span>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Last name..."
+        aria-label="Recipient's username"
+        aria-describedby="basic-addon2"
+        formControlName="lastName"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Email</span>
+      </div>
+      <input
+        type="email"
+        class="form-control"
+        placeholder="Email..."
+        aria-label="Recipient's username"
+        aria-describedby="basic-addon2"
+        formControlName="email"
+      />
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Username</span>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Username..."
+        aria-label="Recipient's username"
+        aria-describedby="basic-addon2"
+        formControlName="userName"
+      />
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Birth date</span>
+      </div>
+      <input
+        type="date"
+        class="form-control"
+        aria-label="Recipient's username"
+        aria-describedby="basic-addon2"
+        formControlName="birthDate"
+      />
+    </div>
+    <br />
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Address</span>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Address..."
+        aria-label="Recipient's username"
+        aria-describedby="basic-addon2"
+        formControlName="address"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">User type</span>
+      </div>
+      <div class="alert alert-light">{{ userType }}</div>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Password</span>
+      </div>
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Password..."
+        aria-label="Recipient's username"
+        aria-describedby="basic-addon2"
+        formControlName="password"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Confirm password</span>
+      </div>
+      <input
+        type="password2"
+        class="form-control"
+        placeholder="Confirm password to make changes"
+        aria-label="Recipient's username"
+        aria-describedby="basic-addon2"
+        formControlName="password2"
+      />
+    </div>
+    <div>
+      <button class="btn btn-primary" type="button" (click)="onUpdate()">
+        Update
+      </button>
+    </div>
+  </form>
+  <div>
+    <h4 *ngIf="alertError">{{ alertError }}</h4>
+  </div>
+</div>

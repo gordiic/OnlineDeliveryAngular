@@ -1,0 +1,39 @@
+<app-nav-bar></app-nav-bar>
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Deliverers</th>
+        <th scope="col">Name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Birth date</th>
+        <th scope="col">Address</th>
+        <th scope="col">Verification status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <th scope="row">1</th>
+        <td>{{ user.name }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>@{{ user.userName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.birthDate }}</td>
+        <td>{{ user.address }}</td>
+        <td>
+          <div *ngIf="user.verificated(user); else elseBlock">
+            <button type="button" class="btn btn-success">Verificate</button>
+            <button type="button" class="btn btn-danger">Decline</button>
+          </div>
+          <ng-template #elseBlock>
+            <div>
+              <div>Accepted</div>
+            </div>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
