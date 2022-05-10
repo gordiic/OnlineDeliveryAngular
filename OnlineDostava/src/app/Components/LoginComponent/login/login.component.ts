@@ -34,10 +34,17 @@ export class LoginComponent implements OnInit {
       this.alertError = '';
       this.service.login(login).subscribe(
         (data: Token) => {
-          console.log(data);
-          //localStorage.setItem('token', data._Token);
-          setToken(data._Token);
-          this.router.navigateByUrl('/user');
+          if (data === null) {
+            this.toastr.error(
+              'Incorrect username or password.',
+              'Authentication failed.'
+            );
+          } else {
+            console.log(data);
+            //localStorage.setItem('token', data._Token);
+            setToken(data._Token);
+            this.router.navigateByUrl('/user');
+          }
         },
         (error) => {
           this.toastr.error(

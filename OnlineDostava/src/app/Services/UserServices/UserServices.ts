@@ -40,4 +40,11 @@ export class UserService {
       headers
     );
   }
+
+  getProfile(): Observable<User> {
+    const token = getToken();
+    return this.http.get<User>(
+      environment.serverURL + '/api/user/getProfile?token=' + token
+    );
+  }
 }

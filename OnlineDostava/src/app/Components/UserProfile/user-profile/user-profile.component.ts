@@ -5,6 +5,7 @@ import { User } from 'src/app/Models/User';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../../Services/UserServices/UserServices';
+import { UserType } from 'src/app/Models/UserType';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -13,7 +14,7 @@ import { UserService } from '../../../Services/UserServices/UserServices';
 export class UserProfileComponent implements OnInit {
   user: User = new User();
   alertError: string = '';
-  userType: string = 'administrator';
+  userType: string = '';
   userUpdateForm = new FormGroup({
     userName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -27,10 +28,11 @@ export class UserProfileComponent implements OnInit {
     ]),
     name: new FormControl(this.user.name, Validators.required),
     lastName: new FormControl('', Validators.required),
-    birthDate: new FormControl(Date.now(), Validators.required),
+    birthDate: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
     //userType: new FormControl('', Validators.required),
   });
+
   onUpdate() {
     console.log(
       this.userUpdateForm.controls['password'].value,
@@ -41,13 +43,16 @@ export class UserProfileComponent implements OnInit {
       this.userUpdateForm.controls['password'].value ===
         this.userUpdateForm.controls['password2'].value
     ) {
-      console.log('usao rpvo');
       var givenDate = this.userUpdateForm.controls['birthDate'].value;
       var currentDate = new Date();
+      // this.user.userType = (<any>UserType)[this.userType];
+      //console.log(this.user.userType);
       givenDate = new Date(givenDate);
       if (givenDate < currentDate) {
         console.log('usao');
         let user: User = new User();
+        user.userType = (<any>UserType)[this.userType];
+        console.log(user.userType);
         user.userName = this.userUpdateForm.controls['userName'].value;
         user.email = this.userUpdateForm.controls['email'].value;
         user.password = this.userUpdateForm.controls['password'].value;
@@ -55,10 +60,20 @@ export class UserProfileComponent implements OnInit {
         user.lastName = this.userUpdateForm.controls['lastName'].value;
         user.birthDate = this.userUpdateForm.controls['birthDate'].value;
         user.address = this.userUpdateForm.controls['address'].value;
-        //user.userType = this.userUpdateForm.controls['userType'].value;
+        this.alertError = '';
         this.service.updateProfile(user).subscribe(
           (data) => {
-            this.router.navigateByUrl('/user');
+            console.log('data', data);
+
+            this.userType = data.userType;
+            this.userUpdateForm.controls['name'].setValue(data.name);
+            this.userUpdateForm.controls['lastName'].setValue(data.lastName);
+            this.userUpdateForm.controls['userName'].setValue(data.userName);
+            this.userUpdateForm.controls['email'].setValue(data.email);
+            this.userUpdateForm.controls['password'].setValue('');
+            this.userUpdateForm.controls['password2'].setValue('');
+            this.userUpdateForm.controls['address'].setValue(data.address);
+            //this.router.navigateByUrl('/user');
           },
           (error) => {
             this.toastr.error('Desila se neka greska, sta sad da radimo.');
@@ -76,6 +91,21 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userUpdateForm.controls['name'].setValue('mile');
+    let user = this.service.getProfile().subscribe(
+      (data) => {
+        console.log(data);
+        //const bcrypt = require('bcrypt');
+        this.userType = data.userType;
+        this.userUpdateForm.controls['name'].setValue(data.name);
+        this.userUpdateForm.controls['lastName'].setValue(data.lastName);
+        this.userUpdateForm.controls['userName'].setValue(data.userName);
+        this.userUpdateForm.controls['email'].setValue(data.email);
+        this.userUpdateForm.controls['birthDate'].setValue(data.birthDate);
+        this.userUpdateForm.controls['address'].setValue(data.address);
+      },
+      (error) => {
+        this.toastr.error('Desila se neka greska, sta sad da radimo.');
+      }
+    );
   }
 }
