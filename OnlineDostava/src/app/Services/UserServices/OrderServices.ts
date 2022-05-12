@@ -9,28 +9,17 @@ import { User } from '../../Models/User';
 import { Token } from '../../Models/Token';
 import { Product } from 'src/app/Models/Product';
 import { getToken, getTokenType } from './TokenService';
+import { Order } from 'src/app/Models/Order';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductService {
+export class OrderService {
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
-    const header = new HttpHeaders().set(
-      'Authorization',
-      getTokenType() + getToken()
-    );
-    const headers = { headers: header };
-    return this.http.get<Product[]>(
-      environment.serverURL + '/api/product/getproducts',
-      headers
-    );
-  }
-
-  addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(
-      environment.serverURL + '/api/product/addproduct',
-      product
+  addOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(
+      environment.serverURL + '/api/order/addorder',
+      order
     );
   }
 }

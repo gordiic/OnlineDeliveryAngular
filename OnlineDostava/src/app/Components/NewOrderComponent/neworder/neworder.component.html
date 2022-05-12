@@ -51,11 +51,12 @@
           <tr *ngFor="let product of order.products">
             <td>{{ product.name }}</td>
             <td>
-              <table>
+              {{ product.ingredients }}
+              <!-- <table>
                 <td *ngFor="let ingredient of product.ingredients">
                   {{ ingredient }}
                 </td>
-              </table>
+              </table> -->
             </td>
 
             <td>
@@ -98,11 +99,12 @@
             <tr *ngFor="let product of products">
               <td>{{ product.name }}</td>
               <td>
-                <table>
+                {{ product.ingredients }}
+                <!-- <table>
                   <td *ngFor="let ingredient of product.ingredients">
                     {{ ingredient }}
                   </td>
-                </table>
+                </table> -->
               </td>
               <td>{{ product.price }}</td>
               <td>

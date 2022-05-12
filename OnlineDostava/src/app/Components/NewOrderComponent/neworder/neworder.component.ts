@@ -3,6 +3,11 @@ import { Order } from 'src/app/Models/Order';
 import { Product } from 'src/app/Models/Product';
 import { deliverPrice } from 'src/app/Models/DeliverPrice';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { OrderProduct } from 'src/app/Models/OrderProduct';
+import { ProductService } from 'src/app/Services/UserServices/ProductServices';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { OrderService } from 'src/app/Services/UserServices/OrderServices';
 @Component({
   selector: 'app-neworder',
   templateUrl: './neworder.component.html',
@@ -17,11 +22,11 @@ export class NeworderComponent implements OnInit {
   });
   products: Product[] = [];
   order: Order = new Order();
-  constructor() {}
 
   confirmOrder() {
     if (this.orderForm.valid) {
       if (this.order.products.length > 0) {
+        //poslati porudzbinu
         this.alertError = '';
       } else {
         this.alertError = 'Morate nesto poruciti.';
@@ -30,7 +35,7 @@ export class NeworderComponent implements OnInit {
       this.alertError = 'Popunite adresu i komentar.';
     }
     //poslati porudzbinu serveru
-    console.log(this.order.ToString(this.order));
+    //console.log(this.order.ToString(this.order));
   }
 
   addProduct(id: Number) {
@@ -42,7 +47,7 @@ export class NeworderComponent implements OnInit {
     }
     for (let i = 0; i < this.products.length; i++) {
       if (this.products[i].id === id) {
-        let p = new Product();
+        let p = new OrderProduct();
         p.id = this.products[i].id;
         p.amount = 1;
         p.ingredients = this.products[i].ingredients;
@@ -80,18 +85,27 @@ export class NeworderComponent implements OnInit {
       }
     }
   }
-
+  constructor(
+    private productService: ProductService,
+    private orderService: OrderService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
   ngOnInit(): void {
-    // for (let i = 0; i < 10; i++) {
-    //   var p: Product = new Product();
-    //   p.name = 'ime' + i;
-    //   p.price = i;
-    //   p.ingredients.push('luk');
-    //   p.ingredients.push('paprika');
-    //   p.ingredients.push('meso');
-    //   p.ingredients.push('kajmak');
-    //   p.id = i;
-    //   this.products.push(p);
-    // }
+    this.productService.getProducts().subscribe(
+      (data: Product[]) => {
+        console.log(data);
+        if (data === null) {
+          this.toastr.error('Nema proizvoda na stanju.');
+        } else {
+          for (let i = 0; i < data.length; i++) {
+            this.products.push(data[i]);
+          }
+        }
+      },
+      (error) => {
+        this.toastr.error('Desila se neka na stanju.');
+      }
+    );
   }
 }

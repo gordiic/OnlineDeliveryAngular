@@ -23,7 +23,6 @@ export class User {
   }
 
   public isAccepted(accountStatus: string) {
-    console.log('in fun', accountStatus);
     if (accountStatus === 'accepted') {
       return true;
     } else {

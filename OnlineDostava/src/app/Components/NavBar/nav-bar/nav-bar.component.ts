@@ -20,12 +20,10 @@ export class NavBarComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log('token');
     let token = getToken();
     console.log(token);
     if (token !== null) {
       this.accountStatus = getAccountStatusFromToken(token);
-      console.log('accstat', this.accountStatus);
       this.userType = getUserTypeFromToken(token);
     }
   }

@@ -9,7 +9,7 @@ export function setToken(token: string) {
 }
 
 export function getTokenType() {
-  return 'Bearer ';
+  return '';
 }
 
 export function getDecodedAccessToken(token: string): any {
@@ -25,7 +25,7 @@ export function getUserTypeFromToken(token: string) {
   console.log(claims);
   for (var c in claims) {
     var claim = c.split('/');
-    if (claim[claim.length - 1] === 'authorizationdecision') {
+    if (claim[claim.length - 1] === 'role') {
       console.log(claims[c]);
       return claims[c];
     }
@@ -37,7 +37,7 @@ export function getAccountStatusFromToken(token: string) {
   console.log(claims);
   for (var c in claims) {
     var claim = c.split('/');
-    if (claim[claim.length - 1] === 'role') {
+    if (claim[claim.length - 1] === 'authorizationdecision') {
       console.log(claims[c]);
       return claims[c];
     }
