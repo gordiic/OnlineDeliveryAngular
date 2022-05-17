@@ -19,6 +19,7 @@ import { VerificationComponent } from './Components/VerifictionComponent/verific
 import { AddproductComponent } from './Components/AddProduct/addproduct/addproduct.component';
 import { NeworderComponent } from './Components/NewOrderComponent/neworder/neworder.component';
 import { MyordersComponent } from './Components/MyOrdersComponent/myorders/myorders.component';
+import { NewordersComponent } from './Components/NewOrders/neworders/neworders.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MyordersComponent } from './Components/MyOrdersComponent/myorders/myord
     AddproductComponent,
     NeworderComponent,
     MyordersComponent,
+    NewordersComponent,
   ],
   imports: [
     HttpClientModule,

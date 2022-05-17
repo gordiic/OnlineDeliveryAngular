@@ -7,6 +7,7 @@ import { VerificationComponent } from './Components/VerifictionComponent/verific
 import { AddproductComponent } from './Components/AddProduct/addproduct/addproduct.component';
 import { NeworderComponent } from './Components/NewOrderComponent/neworder/neworder.component';
 import { MyordersComponent } from './Components/MyOrdersComponent/myorders/myorders.component';
+import { NewordersComponent } from './Components/NewOrders/neworders/neworders.component';
 //import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'addProduct', component: AddproductComponent },
   { path: 'neworder', component: NeworderComponent },
   { path: 'myorders', component: MyordersComponent },
+  { path: 'neworders', component: NewordersComponent },
 ];
 
 @NgModule({

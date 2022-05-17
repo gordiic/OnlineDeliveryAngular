@@ -35,6 +35,9 @@
         <a class="nav-link" href="/myorders">Moje porudzbine</a>
       </li>
       <li class="nav-item" *ngIf="user.isDeliverer(userType)">
+        <a class="nav-link" href="/neworders">Nove porudzbine</a>
+      </li>
+      <li class="nav-item" *ngIf="user.isAdministrator(userType)">
         <a class="nav-link disabled" href="#">Sve porudzbine</a>
       </li>
       <li class="nav-item" *ngIf="user.isAdministrator(userType)">

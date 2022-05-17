@@ -4,13 +4,13 @@ import { Product } from './Product';
 export class Order {
   id: number = 0;
   products: OrderProduct[] = [];
-  address: String = '';
-  comment: String = '';
+  address: string = '';
+  comment: string = '';
   price: number = 0;
   deliverTime: number = this.RandomTime();
   done: boolean = false;
   accepted: boolean = false;
-  acceptanceTime: Date | 0 = 0;
+  acceptanceTime: string = '';
   userId: number = 0;
 
   public RandomTime() {

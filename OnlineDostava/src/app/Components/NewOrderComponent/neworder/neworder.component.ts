@@ -26,7 +26,25 @@ export class NeworderComponent implements OnInit {
   confirmOrder() {
     if (this.orderForm.valid) {
       if (this.order.products.length > 0) {
-        //poslati porudzbinu
+        this.order.address = this.orderForm.controls['address'].value;
+        this.order.comment = this.orderForm.controls['comment'].value;
+        this.order.price += deliverPrice;
+        this.orderService.addOrder(this.order).subscribe(
+          (data: Order) => {
+            console.log(data);
+            if (data === null) {
+              this.toastr.error('Neuspjesno poslata porudzbina.');
+            } else {
+              this.toastr.success('Porudzbina je na cekanju.');
+            }
+          },
+          (error) => {
+            this.toastr.error('Desila se neka greska pri konekciji.');
+          }
+        );
+        this.orderForm.controls['address'].setValue('');
+        this.orderForm.controls['comment'].setValue('');
+        this.order = new Order();
         this.alertError = '';
       } else {
         this.alertError = 'Morate nesto poruciti.';
@@ -104,7 +122,7 @@ export class NeworderComponent implements OnInit {
         }
       },
       (error) => {
-        this.toastr.error('Desila se neka na stanju.');
+        this.toastr.error('Desila se neka greska.');
       }
     );
   }

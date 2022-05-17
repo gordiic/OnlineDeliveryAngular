@@ -17,9 +17,46 @@ export class OrderService {
   constructor(private http: HttpClient) {}
 
   addOrder(order: Order): Observable<Order> {
+    console.log(order);
+    const header = new HttpHeaders().set(
+      'Authorization',
+      getTokenType() + getToken()
+    );
+    const headers = { headers: header };
     return this.http.post<Order>(
       environment.serverURL + '/api/order/addorder',
-      order
+      order,
+      headers
+    );
+  }
+
+  getUserOrders(): Observable<Order[]> {
+    const token = getToken();
+    return this.http.get<Order[]>(
+      environment.serverURL + '/api/order/getuserorders?token=' + token
+    );
+  }
+
+  getNewOrders(): Observable<Order[]> {
+    const header = new HttpHeaders().set(
+      'Authorization',
+      getTokenType() + getToken()
+    );
+    const headers = { headers: header };
+    return this.http.post<Order[]>(
+      environment.serverURL + '/api/order/getneworders',
+      headers
+    );
+  }
+
+  acceptOrder(id: number): Observable<Order> {
+    const token = getToken();
+    return this.http.get<Order>(
+      environment.serverURL +
+        '/api/order/acceptorder?id=' +
+        id +
+        '&token=' +
+        token
     );
   }
 }
