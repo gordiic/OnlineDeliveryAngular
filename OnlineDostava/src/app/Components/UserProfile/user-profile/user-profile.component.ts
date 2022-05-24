@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../../Services/UserServices/UserServices';
 import { UserType } from 'src/app/Models/UserType';
+import { AccountStatus } from 'src/app/Models/AccountStatus';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -13,8 +14,11 @@ import { UserType } from 'src/app/Models/UserType';
 })
 export class UserProfileComponent implements OnInit {
   user: User = new User();
+  url: string = '';
   alertError: string = '';
   userType: string = '';
+  accountStatus: string = '';
+
   userUpdateForm = new FormGroup({
     userName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -40,6 +44,7 @@ export class UserProfileComponent implements OnInit {
     );
     if (
       this.userUpdateForm.valid &&
+      this.url.length !== 0 &&
       this.userUpdateForm.controls['password'].value ===
         this.userUpdateForm.controls['password2'].value
     ) {
@@ -60,6 +65,8 @@ export class UserProfileComponent implements OnInit {
         user.lastName = this.userUpdateForm.controls['lastName'].value;
         user.birthDate = this.userUpdateForm.controls['birthDate'].value;
         user.address = this.userUpdateForm.controls['address'].value;
+        user.image = this.url;
+        user.accountStatus = (<any>AccountStatus)[this.accountStatus];
         this.alertError = '';
         this.service.updateProfile(user).subscribe(
           (data) => {
@@ -84,6 +91,15 @@ export class UserProfileComponent implements OnInit {
       this.alertError = 'Popunite pravilno sve parametre za izmjenu profila.';
     }
   }
+  onSelectFile(e: any) {
+    if (e.target.files) {
+      var reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+      };
+    }
+  }
   constructor(
     private service: UserService,
     private router: Router,
@@ -96,12 +112,17 @@ export class UserProfileComponent implements OnInit {
         console.log(data);
         //const bcrypt = require('bcrypt');
         this.userType = data.userType;
+        this.accountStatus = data.accountStatus;
+        console.log(this.userType);
         this.userUpdateForm.controls['name'].setValue(data.name);
         this.userUpdateForm.controls['lastName'].setValue(data.lastName);
         this.userUpdateForm.controls['userName'].setValue(data.userName);
         this.userUpdateForm.controls['email'].setValue(data.email);
         this.userUpdateForm.controls['birthDate'].setValue(data.birthDate);
         this.userUpdateForm.controls['address'].setValue(data.address);
+        this.url = data.image;
+        console.log(this.url);
+        //getElementById('ItemPreview').src = 'data:image/png;base64,' + yourByteArrayAsBase64;
       },
       (error) => {
         this.toastr.error('Desila se neka greska, sta sad da radimo.');

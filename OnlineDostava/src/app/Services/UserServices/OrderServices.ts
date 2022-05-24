@@ -48,7 +48,7 @@ export class OrderService {
       headers
     );
   }
-
+  //5/9/2022 2:50:56 PM
   acceptOrder(id: number): Observable<Order> {
     const token = getToken();
     return this.http.get<Order>(
@@ -57,6 +57,12 @@ export class OrderService {
         id +
         '&token=' +
         token
+    );
+  }
+  getcurrentOrder(): Observable<Order> {
+    const token = getToken();
+    return this.http.get<Order>(
+      environment.serverURL + '/api/order/getcurrentorder?token=' + token
     );
   }
 }

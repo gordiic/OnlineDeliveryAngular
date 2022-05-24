@@ -8,6 +8,7 @@ import { AddproductComponent } from './Components/AddProduct/addproduct/addprodu
 import { NeworderComponent } from './Components/NewOrderComponent/neworder/neworder.component';
 import { MyordersComponent } from './Components/MyOrdersComponent/myorders/myorders.component';
 import { NewordersComponent } from './Components/NewOrders/neworders/neworders.component';
+import { CurrentdeliveryComponent } from './Components/CurrentDeliveryComponent/currentdelivery/currentdelivery.component';
 //import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'neworder', component: NeworderComponent },
   { path: 'myorders', component: MyordersComponent },
   { path: 'neworders', component: NewordersComponent },
+  { path: 'currentdel', component: CurrentdeliveryComponent },
 ];
 
 @NgModule({

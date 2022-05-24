@@ -6,7 +6,6 @@
         <th scope="col">Address</th>
         <th scope="col">Price</th>
         <th scope="col">Products</th>
-        <th>Status</th>
       </tr>
     </thead>
     <tbody>
@@ -14,12 +13,12 @@
         <td>{{ order.address }}</td>
         <td>{{ order.price }}</td>
         <td *ngFor="let product of order.products">{{ product.name }}</td>
-        <td *ngIf="order.accepted; else elseBlock">Finished</td>
+        <!-- <td *ngIf="order.accepted; else elseBlock">Finished</td>
         <ng-template #elseBlock>
           <td>
             <div>Not accepted jet</div>
           </td>
-        </ng-template>
+        </ng-template> -->
       </tr>
     </tbody>
   </table>

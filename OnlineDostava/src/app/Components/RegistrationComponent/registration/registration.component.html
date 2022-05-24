@@ -67,6 +67,14 @@
         </select>
       </div>
       <div>
+        <label>Image</label>
+        <input
+          placeholder="chose birth date"
+          type="file"
+          (change)="onSelectFile($event)"
+        />
+      </div>
+      <div>
         <button type="button" (click)="onRegister()">Register</button>
       </div>
     </div>

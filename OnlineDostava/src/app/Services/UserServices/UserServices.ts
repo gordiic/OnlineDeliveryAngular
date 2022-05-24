@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { User } from '../../Models/User';
 import { Token } from '../../Models/Token';
 import { getToken, getTokenType } from './TokenService';
+import { Order } from 'src/app/Models/Order';
+import { AccountStatus } from 'src/app/Models/AccountStatus';
 @Injectable({
   providedIn: 'root',
 })
@@ -40,11 +42,35 @@ export class UserService {
       headers
     );
   }
-
+  verificateUser(id: number, accountStatus: string): Observable<User> {
+    const header = new HttpHeaders().set(
+      'Authorization',
+      getTokenType() + getToken()
+    );
+    const headers = { headers: header };
+    return this.http.post<User>(
+      environment.serverURL +
+        '/api/user/verificateuser?accountStatus=' +
+        accountStatus +
+        '&id=' +
+        id,
+      headers
+    );
+  }
+  getUsers(): Observable<User[]> {
+    const token = getToken();
+    return this.http.get<User[]>(environment.serverURL + '/api/user/getusers');
+  }
   getProfile(): Observable<User> {
     const token = getToken();
     return this.http.get<User>(
       environment.serverURL + '/api/user/getProfile?token=' + token
+    );
+  }
+  checkDeliverStatus(): Observable<Order> {
+    const token = getToken();
+    return this.http.get<Order>(
+      environment.serverURL + '/api/user/checkdeliverstatus?token=' + token
     );
   }
 }

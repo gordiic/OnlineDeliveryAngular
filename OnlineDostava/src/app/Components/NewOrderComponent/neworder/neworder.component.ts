@@ -8,6 +8,8 @@ import { ProductService } from 'src/app/Services/UserServices/ProductServices';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { OrderService } from 'src/app/Services/UserServices/OrderServices';
+import { UserService } from 'src/app/Services/UserServices/UserServices';
+import { User } from 'src/app/Models/User';
 @Component({
   selector: 'app-neworder',
   templateUrl: './neworder.component.html',
@@ -106,19 +108,34 @@ export class NeworderComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private orderService: OrderService,
+    private userService: UserService,
     private router: Router,
     private toastr: ToastrService
   ) {}
   ngOnInit(): void {
-    this.productService.getProducts().subscribe(
-      (data: Product[]) => {
+    this.userService.checkDeliverStatus().subscribe(
+      (data: Order) => {
         console.log(data);
         if (data === null) {
-          this.toastr.error('Nema proizvoda na stanju.');
+          this.productService.getProducts().subscribe(
+            (data: Product[]) => {
+              console.log(data);
+              if (data === null) {
+                this.toastr.error('Nema proizvoda na stanju.');
+              } else {
+                for (let i = 0; i < data.length; i++) {
+                  this.products.push(data[i]);
+                }
+              }
+            },
+            (error) => {
+              this.toastr.error('Desila se neka greska.');
+            }
+          );
         } else {
-          for (let i = 0; i < data.length; i++) {
-            this.products.push(data[i]);
-          }
+          this.router.navigate(['/currentdel'], {
+            state: { order: data },
+          });
         }
       },
       (error) => {

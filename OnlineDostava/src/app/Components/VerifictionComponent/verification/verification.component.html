@@ -23,14 +23,31 @@
         <td>{{ user.birthDate }}</td>
         <td>{{ user.address }}</td>
         <td>
-          <div *ngIf="user.verificated(user); else elseBlock">
-            <button type="button" class="btn btn-success">Verificate</button>
-            <button type="button" class="btn btn-danger">Decline</button>
+          <div *ngIf="verificated(user.accountStatus); else elseBlock">
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="onVerificate(user.id, 'accepted')"
+            >
+              Verificate
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="onVerificate(user.id, 'declined')"
+            >
+              Decline
+            </button>
           </div>
           <ng-template #elseBlock>
-            <div>
-              <div>Accepted</div>
+            <div *ngIf="declined(user.accountStatus); else elseBlock2">
+              <div>Declined</div>
             </div>
+            <ng-template #elseBlock2>
+              <div>
+                <div>Accepted</div>
+              </div>
+            </ng-template>
           </ng-template>
         </td>
       </tr>

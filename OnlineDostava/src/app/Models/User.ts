@@ -11,11 +11,12 @@ export class User {
   lastName: string = '';
   birthDate: string = '';
   address: string = '';
+  image: string = '';
   userType: UserType = UserType.ordinaryUser;
   accountStatus: AccountStatus = AccountStatus.processing;
   orders: Order[] = [];
-  public verificated(u: User) {
-    if (this.accountStatus === AccountStatus.processing) {
+  public verificated(accountStatus: string) {
+    if (accountStatus === String(AccountStatus.processing)) {
       return true;
     } else {
       return false;

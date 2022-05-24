@@ -14,6 +14,7 @@ import { UserType } from 'src/app/Models/UserType';
 })
 export class RegistrationComponent implements OnInit {
   alertError: string = '';
+  url: string = '';
   registrationForm = new FormGroup({
     userName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -32,13 +33,23 @@ export class RegistrationComponent implements OnInit {
     userType: new FormControl('', Validators.required),
   });
 
+  onSelectFile(e: any) {
+    if (e.target.files) {
+      var reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+      };
+    }
+  }
   onRegister() {
     // console.log(this.registrationForm);
     // let dateTimeToday = new Date();
     //console.log(dateTimeToday);
-
+    console.log(this.url);
     if (
       this.registrationForm.valid &&
+      this.url.length !== 0 &&
       this.registrationForm.controls['password'].value ===
         this.registrationForm.controls['password2'].value
     ) {
@@ -54,6 +65,7 @@ export class RegistrationComponent implements OnInit {
         user.lastName = this.registrationForm.controls['lastName'].value;
         user.birthDate = this.registrationForm.controls['birthDate'].value;
         user.address = this.registrationForm.controls['address'].value;
+        user.image = this.url;
         user.userType = this.registrationForm.controls['userType']
           .value as UserType;
         if (

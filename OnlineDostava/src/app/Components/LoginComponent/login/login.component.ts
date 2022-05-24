@@ -6,7 +6,8 @@ import { User } from 'src/app/Models/User';
 import { UserService } from 'src/app/Services/UserServices/UserServices';
 import { Token } from 'src/app/Models/Token';
 import { ToastrService } from 'ngx-toastr';
-import { setToken } from 'src/app/Services/UserServices/TokenService';
+import { getToken, setToken } from 'src/app/Services/UserServices/TokenService';
+import { Order } from 'src/app/Models/Order';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -43,7 +44,20 @@ export class LoginComponent implements OnInit {
             console.log(data);
             //localStorage.setItem('token', data._Token);
             setToken(data._Token);
-            this.router.navigateByUrl('/user');
+            this.service.checkDeliverStatus().subscribe(
+              (data: Order) => {
+                if (data === null) {
+                  this.router.navigateByUrl('/user');
+                } else {
+                  this.router.navigate(['/currentdel'], {
+                    state: { order: data },
+                  });
+                }
+              },
+              (error) => {
+                this.toastr.error('Desila se neka greska.');
+              }
+            );
           }
         },
         (error) => {

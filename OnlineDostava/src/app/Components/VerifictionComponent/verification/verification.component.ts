@@ -14,24 +14,63 @@ import { UserType } from 'src/app/Models/UserType';
 })
 export class VerificationComponent implements OnInit {
   users: User[] = [];
+  onVerificate(id: number, accountStatus: string) {
+    console.log('id', id);
+    this.userService.verificateUser(id, accountStatus).subscribe(
+      (data: User) => {
+        console.log(data);
+        if (data === null) {
+          this.toastr.error('Nema korisnika.');
+        } else {
+          for (let i = 0; i < this.users.length; i++) {
+            if (data.id === this.users[i].id) {
+              this.users[i].accountStatus = data.accountStatus;
+              return;
+            }
+          }
+        }
+      },
+      (error) => {
+        this.toastr.error('Desila se neka greska.');
+      }
+    );
+  }
 
-  constructor() {}
-
-  ngOnInit(): void {
-    var u2: User = new User();
-    u2.name = 'nebojsa';
-    u2.lastName = 'gordic';
-    u2.accountStatus = AccountStatus.accepted;
-    console.log(u2.accountStatus);
-    u2.userName = 'gorda';
-    this.users.push(u2);
-    for (let i = 0; i < 10; i++) {
-      var u: User = new User();
-      u.name = 'nebojsa' + String(i);
-      u.lastName = 'gordic' + String(i);
-      u.accountStatus = AccountStatus.processing;
-      u.userName = 'gorda';
-      this.users.push(u);
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
+  verificated(accountStatus: string) {
+    if (accountStatus === String(AccountStatus.processing)) {
+      return true;
+    } else {
+      return false;
     }
+  }
+  declined(accountStatus: string) {
+    if (accountStatus === String(AccountStatus.declined)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  ngOnInit(): void {
+    this.userService.getUsers().subscribe(
+      (data: User[]) => {
+        console.log(data);
+        if (data === null) {
+          this.toastr.error('Nema korisnika.');
+        } else {
+          for (let i = 0; i < data.length; i++) {
+            console.log(data[i]);
+            this.users.push(data[i]);
+          }
+        }
+      },
+      (error) => {
+        this.toastr.error('Desila se neka greska.');
+      }
+    );
   }
 }

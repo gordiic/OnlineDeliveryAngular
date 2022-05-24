@@ -4,6 +4,23 @@
   <form [formGroup]="userUpdateForm" autocomplete="off">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Image</span>
+        <input
+          placeholder="chose birth date"
+          type="file"
+          (change)="onSelectFile($event)"
+        />
+      </div>
+      <img
+        id="ItemPreview"
+        title="profilnaslika"
+        [src]="[this.url]"
+        height="100"
+        width="100"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon1">Name</span>
       </div>
       <input

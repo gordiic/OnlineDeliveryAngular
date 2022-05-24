@@ -20,6 +20,8 @@ import { AddproductComponent } from './Components/AddProduct/addproduct/addprodu
 import { NeworderComponent } from './Components/NewOrderComponent/neworder/neworder.component';
 import { MyordersComponent } from './Components/MyOrdersComponent/myorders/myorders.component';
 import { NewordersComponent } from './Components/NewOrders/neworders/neworders.component';
+import { CurrentdeliveryComponent } from './Components/CurrentDeliveryComponent/currentdelivery/currentdelivery.component';
+import { DelivererordersComponent } from './Components/DelivererOrdersComponent/delivererorders/delivererorders.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { NewordersComponent } from './Components/NewOrders/neworders/neworders.c
     NeworderComponent,
     MyordersComponent,
     NewordersComponent,
+    CurrentdeliveryComponent,
+    DelivererordersComponent,
   ],
   imports: [
     HttpClientModule,

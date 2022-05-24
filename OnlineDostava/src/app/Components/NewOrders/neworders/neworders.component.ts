@@ -13,19 +13,28 @@ import { ProductService } from 'src/app/Services/UserServices/ProductServices';
 export class NewordersComponent implements OnInit {
   orders: Order[] = [];
 
+  sleep(time: number) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
   onAccept(id: number) {
     this.orderService.acceptOrder(id).subscribe(
       (data: Order) => {
         if (data === null) {
           this.toastr.error('Neuspjesno prihvatanje.');
         } else {
-          this.router.navigateByUrl('/currentdel');
+          console.log('usao1');
+
+          //this.sleep(3000).then(() => {
+          console.log('usao');
+          this.router.navigate(['/currentdel'], { state: { order: data } });
+          //});
         }
       },
       (error) => {
         this.toastr.error('Desila se neka greska.');
       }
     );
+    console.log(id);
   }
 
   constructor(

@@ -15,7 +15,7 @@ export class Order {
 
   public RandomTime() {
     let min = 15;
-    let max = 80;
+    let max = 59;
     return Math.floor(Math.random() * (max - min) + min);
   }
   // public GetProducts(products: Product[]) {
