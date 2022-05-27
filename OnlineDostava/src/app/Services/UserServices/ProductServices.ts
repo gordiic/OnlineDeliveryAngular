@@ -16,14 +16,8 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    const header = new HttpHeaders().set(
-      'Authorization',
-      getTokenType() + getToken()
-    );
-    const headers = { headers: header };
     return this.http.get<Product[]>(
-      environment.serverURL + '/api/product/getproducts',
-      headers
+      environment.serverURL + '/api/product/getproducts'
     );
   }
 

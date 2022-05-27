@@ -87,7 +87,7 @@ export class CurrentdeliveryComponent implements OnInit {
           this.timer.minutes--;
         }
       }
-    }, 100);
+    }, 1000);
   }
   // }
 

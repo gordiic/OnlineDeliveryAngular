@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ToastrModule } from 'ngx-toastr';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavBarComponent } from './Components/NavBar/nav-bar/nav-bar.component';
 import { VerificationComponent } from './Components/VerifictionComponent/verification/verification.component';
 import { AddproductComponent } from './Components/AddProduct/addproduct/addproduct.component';
@@ -22,6 +22,7 @@ import { MyordersComponent } from './Components/MyOrdersComponent/myorders/myord
 import { NewordersComponent } from './Components/NewOrders/neworders/neworders.component';
 import { CurrentdeliveryComponent } from './Components/CurrentDeliveryComponent/currentdelivery/currentdelivery.component';
 import { DelivererordersComponent } from './Components/DelivererOrdersComponent/delivererorders/delivererorders.component';
+import { TokeninterceptorService } from './Services/tokeninterceptor.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,13 @@ import { DelivererordersComponent } from './Components/DelivererOrdersComponent/
       positionClass: 'toast-bottom-right',
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokeninterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

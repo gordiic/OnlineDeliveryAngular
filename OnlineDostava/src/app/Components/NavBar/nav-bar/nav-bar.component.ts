@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Token } from 'src/app/Models/Token';
 import { User } from 'src/app/Models/User';
 import {
@@ -6,6 +7,7 @@ import {
   getToken,
   getUserTypeFromToken,
   getAccountStatusFromToken,
+  clearToken,
 } from 'src/app/Services/UserServices/TokenService';
 @Component({
   selector: 'app-nav-bar',
@@ -17,8 +19,11 @@ export class NavBarComponent implements OnInit {
   userType: string = '';
   accountStatus: string = '';
   user: User = new User();
-  constructor() {}
-
+  constructor(private router: Router) {}
+  onLogOut() {
+    clearToken();
+    this.router.navigateByUrl('/');
+  }
   ngOnInit(): void {
     let token = getToken();
     console.log(token);

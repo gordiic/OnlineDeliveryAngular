@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Order } from 'src/app/Models/Order';
 import { OrderService } from 'src/app/Services/UserServices/OrderServices';
 import { ProductService } from 'src/app/Services/UserServices/ProductServices';
+import { UserService } from 'src/app/Services/UserServices/UserServices';
 
 @Component({
   selector: 'app-neworders',
@@ -40,20 +41,35 @@ export class NewordersComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private orderService: OrderService,
+    private userService: UserService,
     private router: Router,
     private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.orderService.getNewOrders().subscribe(
-      (data: Order[]) => {
-        console.log(data);
+    this.userService.checkDeliverStatus().subscribe(
+      (data: Order) => {
         if (data === null) {
-          this.toastr.error('Nema porudzbina.');
+          this.orderService.getNewOrders().subscribe(
+            (data: Order[]) => {
+              console.log(data);
+              if (data === null) {
+                this.toastr.error('Nema porudzbina.');
+              } else {
+                for (let i = 0; i < data.length; i++) {
+                  this.orders.push(data[i]);
+                }
+              }
+            },
+            (error) => {
+              this.toastr.error('Desila se neka greska.');
+            }
+          );
         } else {
-          for (let i = 0; i < data.length; i++) {
-            this.orders.push(data[i]);
-          }
+          console.log('usao');
+          this.router.navigate(['/currentdel'], {
+            state: { order: data },
+          });
         }
       },
       (error) => {

@@ -49,6 +49,9 @@
       <li class="nav-item" *ngIf="user.isAdministrator(userType)">
         <a class="nav-link" href="/addProduct">Dodavanje proizvoda</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="onLogOut()">Odjavi se</a>
+      </li>
     </ul>
   </div>
   <ng-template #elseBlock>
@@ -57,7 +60,7 @@
     </div>
     <ng-template #elseBlock2>
       <div>
-        <div>Vasa registracija je odbijena.</div>
+        <div></div>
       </div>
     </ng-template>
   </ng-template>

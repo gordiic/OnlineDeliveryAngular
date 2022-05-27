@@ -9,7 +9,11 @@ export function setToken(token: string) {
 }
 
 export function getTokenType() {
-  return '';
+  return 'Bearer ';
+}
+
+export function clearToken() {
+  localStorage.removeItem('token');
 }
 
 export function getDecodedAccessToken(token: string): any {
