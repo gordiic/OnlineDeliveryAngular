@@ -68,6 +68,7 @@ export class AddproductComponent implements OnInit {
         if (data === null) {
           this.toastr.error('Nema proizvoda dodatih.');
         } else {
+          console.log(data)
           for (let i = 0; i < data.length; i++) {
             this.products.push(data[i]);
           }

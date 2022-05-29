@@ -14,8 +14,8 @@ export class Order {
   userId: number = 0;
 
   public RandomTime() {
-    let min = 15;
-    let max = 59;
+    let min = 1;
+    let max = 10;
     return Math.floor(Math.random() * (max - min) + min);
   }
   // public GetProducts(products: Product[]) {

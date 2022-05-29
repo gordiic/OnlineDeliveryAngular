@@ -1,7 +1,7 @@
 <app-nav-bar></app-nav-bar>
 <div>
-  <form [formGroup]="registrationForm" autocomplete="off">
-    <div>
+  <form [formGroup]="registrationForm" autocomplete="off" class="px-4 py-3">
+    <div class="form-group">
       <label>Username</label>
       <input
         placeholder="type username..."
@@ -9,11 +9,11 @@
         formControlName="userName"
       />
     </div>
-    <div>
+    <div class="form-group">
       <label>Email</label>
       <input placeholder="type email..." type="email" formControlName="email" />
     </div>
-    <div>
+    <div class="form-group">
       <label>Password</label>
       <input
         placeholder="type password..."
@@ -21,7 +21,7 @@
         formControlName="password"
       />
     </div>
-    <div>
+    <div class="form-group">
       <label>Confirm password</label>
       <input
         placeholder="confirm password..."
@@ -29,11 +29,11 @@
         formControlName="password2"
       />
     </div>
-    <div>
+    <div class="form-group">
       <label>Name</label>
       <input placeholder="type name..." type="text" formControlName="name" />
     </div>
-    <div>
+    <div class="form-group">
       <label>Last name</label>
       <input
         placeholder="type lastname..."
@@ -41,7 +41,7 @@
         formControlName="lastName"
       />
     </div>
-    <div>
+    <div class="form-group">
       <label>Birth date</label>
       <input
         placeholder="chose birth date"
@@ -49,7 +49,7 @@
         formControlName="birthDate"
       />
     </div>
-    <div>
+    <div class="form-group">
       <div>
         <label>Address</label>
         <input
@@ -58,7 +58,7 @@
           formControlName="address"
         />
       </div>
-      <div>
+      <div class="form-group">
         <label>User type</label>
         <select title="userType" formControlName="userType" id="userType">
           <option value="administrator">Administrator</option>
@@ -66,7 +66,7 @@
           <option value="ordinaryUser">Potrosac</option>
         </select>
       </div>
-      <div>
+      <div class="form-group">
         <label>Image</label>
         <input
           placeholder="chose birth date"
@@ -74,8 +74,10 @@
           (change)="onSelectFile($event)"
         />
       </div>
-      <div>
-        <button type="button" (click)="onRegister()">Register</button>
+      <div class="form-group">
+        <button type="button" (click)="onRegister()" class="btn btn-primary">
+          Register
+        </button>
       </div>
     </div>
   </form>
